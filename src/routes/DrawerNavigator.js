@@ -6,11 +6,12 @@ import { StyleSheet , Text} from "react-native";
 
 
 import Home from "../screens/Home";
-import PendingOrders from "../screens/PendingOrders";
+
 import CompletedOrders from "../screens/CompletedOrders";
 import CreateOrder from "../screens/CreateOrder";
 
 import MainStackNavigator from "./MainStackNavigator";
+import PendingStackNavigator from "./PendingStackNavigator";
 
 
 const Drawer = createDrawerNavigator();
@@ -18,20 +19,23 @@ const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator 
+      
         drawerContent={ props => <DrawerContent {...props}/>}  
         drawerType="slide"
         initialRouteName={'Dashboard'}
         >
-      <Drawer.Screen name="Dashboard" component={MainStackNavigator}  options={{
+      <Drawer.Screen name="Dashboard"
+          
+          component={MainStackNavigator}  options={{
            title : "Dashboard",
           drawerIcon :  ({ color }) => <Icon name="rocket" style={[styles.item_icon,{backgroundColor : color  }]}  size={15} color="#ffffff" /> 
       }} />
-       <Drawer.Screen name="Pending" component={PendingOrders} options={{
+       <Drawer.Screen name="Pending" component={PendingStackNavigator} options={{
           title : "Pending Orders",
           drawerIcon :  ({ color }) => <Icon name="file" style={[styles.item_icon,{backgroundColor : color  }]}  size={15} color="#ffffff" /> 
       }} />
        <Drawer.Screen name="Completed" component={CompletedOrders} options={{
-          title : "Completed Orders",
+          title : "Completed",
           drawerIcon :  ({ color }) => <Icon name="archive" style={[styles.item_icon,{backgroundColor : color  }]}  size={15} color="#ffffff" /> 
       }} />
        <Drawer.Screen name="Create" component={CreateOrder} options={{

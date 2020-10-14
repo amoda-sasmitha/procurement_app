@@ -26,6 +26,7 @@ export default class Home extends React.Component {
   }
 
   componentDidMount(){
+    this.setState({loading : true})
     this.getData();
   }
 
@@ -41,7 +42,7 @@ export default class Home extends React.Component {
     })
     .then( result => {
       this.setState({
-        recent : result.data.data.slice(0, 5),
+        recent : result.data.data ,
         loading : false
       })
     })
@@ -61,15 +62,18 @@ export default class Home extends React.Component {
                 
               <View style={{ flexDirection : 'row'}}> 
                 <View style={[styles.middlebar, { marginLeft : 12 , marginRight : 3 , backgroundColor : 'white'}]}> 
-                    <Text style={styles.num} >04</Text>
+                    { !this.state.loading && 
+                    <Text style={[styles.num,{ color : colors.PrimaryBlue }]} >{("0" + this.counts()[0]).slice(-2)}</Text>}
                     <Text style={styles.title}>{`Pending${'\n'}Orders`}</Text>
                 </View>
                 <View style={[styles.middlebar, { marginLeft : 3 , marginRight : 3 , backgroundColor : 'white'}]}> 
-                    <Text style={styles.num} >02</Text>
+                { !this.state.loading && 
+                <Text style={[styles.num,{ color : "#5F61BD"}]} >{("0" + this.counts()[1]).slice(-2)}</Text>}
                     <Text style={styles.title}>{`Approved${'\n'}Orders`}</Text>
                 </View>
                 <View style={[styles.middlebar, { marginLeft : 3 , marginRight : 12 , backgroundColor : 'white'}]}> 
-                    <Text style={styles.num} >13</Text>
+                      { !this.state.loading && 
+                      <Text style={[styles.num,{ color : "#3CC49F" }]} >{("0" + this.counts()[2]).slice(-2)}</Text>}
                     <Text style={styles.title}>{`Completed${'\n'}Orders`}</Text>
                 </View>
               </View>
@@ -78,9 +82,10 @@ export default class Home extends React.Component {
               {/* Recent Orders */}
                 <View style={CommonStyles.card}>
                 <View style={[CommonStyles.cardheder , {flexDirection : 'row'}]}>
-                    <Text style={[CommonStyles.h3 ]}>Recent Orders</Text>
+                <Text style={[CommonStyles.h3 ]}>Recent Orders</Text>
                 </View>
                   <OrdersList 
+                    redirect={'SOMain'}
                     navigation={this.props.navigation}
                     orders={this.renderOrders()} 
                     loading={this.state.loading} />
@@ -94,7 +99,7 @@ export default class Home extends React.Component {
 
     renderOrders = () => {
       const {recent , sites } = this.state;
-      return recent.map( item => {
+      return recent.filter( (item,i) => i < 5 ).map( item => {
           let site = sites.find(i => i._id == item.site)
           return {
             ...item , site_data : site , total : this.gettotal(item.items)
@@ -111,6 +116,23 @@ export default class Home extends React.Component {
         }
       },0)
     }
+
+    counts = () => {
+      const { recent} = this.state;
+      let counts = [0,0,0]
+      recent.forEach( value => {
+        if(value.current_state == 1){
+          counts[0] = counts[0] + 1 
+        }else if(value.current_state == 2){
+          counts[1] = counts[1] + 1 
+        }else if(value.current_state == 3){
+          counts[2] = counts[2] + 1 
+        }
+      })
+
+      return counts;
+
+    }
 }
 
 const styles = StyleSheet.create({
@@ -120,7 +142,7 @@ const styles = StyleSheet.create({
   },
   title: {
       color: colors.SecondaryDark ,
-      // fontWeight : 'bold',
+      fontWeight : 'bold',
       fontSize : 13.5 ,
       textAlign : 'center' ,
       alignSelf : 'center',
@@ -137,8 +159,8 @@ const styles = StyleSheet.create({
       // marginRight : 5
   },
   num : {
-      color: colors.PrimaryDark ,
-      // fontWeight : 'bold',
+    
+      fontWeight : 'bold',
       fontSize : 40 ,
       lineHeight : 42,
       textAlign : 'center',
@@ -168,7 +190,7 @@ const styles = StyleSheet.create({
       paddingVertical : 20 , 
       marginTop : 15,
       borderRadius : 12,
-      elevation: 6,
+      elevation: 3,
       marginBottom : 10 
   }
 });

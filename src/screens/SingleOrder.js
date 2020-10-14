@@ -16,6 +16,7 @@ export default class SingleOrder extends React.Component {
   }
 
   componentDidMount(){
+    console.log(this.props)
   }
 
     render(){
@@ -37,11 +38,11 @@ export default class SingleOrder extends React.Component {
                       style={{borderBottomWidth : 1/3 }}>
                       <Left>
                         <Content>
-                          <View style={{flexDirection : 'row'}}>
+                          <View style={{flexDirection : 'row' , paddingVertical : 4}}>
                             <View style={{flex : 2 , justifyContent : 'center' }}>
                             <Image
-                                style={{width : 48 , height : 48  }}
-                                source={require('../../assets/images/box.png')}
+                                style={{width : 42 , height : 42  }}
+                                source={require('../../assets/images/box-closed.png')}
                             />
                             </View>
                             <View style={{flex : 6 }}>
@@ -103,7 +104,7 @@ export default class SingleOrder extends React.Component {
                   </ListItem>
                 </List>
                 </View>
-
+                   
               </Content>
             </Container>
           </StyleProvider>

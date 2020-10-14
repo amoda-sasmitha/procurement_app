@@ -11,7 +11,7 @@ export default function OrdersList(props){
         <List>
         {props.orders.map( (item ,index , array) => (
         <ListItem noIndent key={index} 
-          onPress={() => props.navigation.navigate({ name : 'SingleOrder' , params : item })}
+          onPress={() => props.navigation.navigate({ name : props.redirect , params : item })}
           style={{borderBottomWidth : (array.length == index + 1 ? 0 : 1/3 )}}>
           <Left>
             <Content>
