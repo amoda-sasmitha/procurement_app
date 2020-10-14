@@ -1,0 +1,2 @@
+https://www.npmjs.com/package/react-native-qrcode-scanner
+*** have to change Privacy - Camera Usage Description" in ios
