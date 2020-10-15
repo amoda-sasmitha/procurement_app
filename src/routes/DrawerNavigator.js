@@ -5,13 +5,12 @@ import { DrawerContent } from "../components/DrawerContent";
 import { StyleSheet , Text} from "react-native";
 
 
-import Home from "../screens/Home";
 
 import CompletedOrders from "../screens/CompletedOrders";
-import CreateOrder from "../screens/CreateOrder";
 
 import MainStackNavigator from "./MainStackNavigator";
 import PendingStackNavigator from "./PendingStackNavigator";
+import CreateOrderStack from "./CreateOrderStack";
 
 
 const Drawer = createDrawerNavigator();
@@ -38,7 +37,7 @@ const DrawerNavigator = () => {
           title : "Completed",
           drawerIcon :  ({ color }) => <Icon name="archive" style={[styles.item_icon,{backgroundColor : color  }]}  size={15} color="#ffffff" /> 
       }} />
-       <Drawer.Screen name="Create" component={CreateOrder} options={{
+       <Drawer.Screen name="Create" component={CreateOrderStack} options={{
           title : "Create Order",
           drawerIcon :  ({ color }) => <Icon name="inbox" style={[styles.item_icon,{backgroundColor : color  }]}  size={15} color="#ffffff" /> 
       }} />

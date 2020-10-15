@@ -60,7 +60,7 @@ class Login extends React.Component {
                 <Form>
                 <FormItem regular  style={styles.forminput} last>
                     <Input 
-                     placeholder={'Username'}
+                     placeholder={'Email'}
                      placeholderTextColor={'#666666'}
                      style={{ fontSize: 16 }} 
                      value={username}

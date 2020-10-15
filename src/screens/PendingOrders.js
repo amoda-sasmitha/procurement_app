@@ -36,7 +36,7 @@ export default class PendingOrders extends React.Component {
     })
     .then( result => {
       this.setState({
-        pending : result.data.data ,
+        pending : result.data.data.filter( (item,i) => item.current_state == 1 ) ,
         loading : false
       })
     })
@@ -69,7 +69,7 @@ export default class PendingOrders extends React.Component {
 
     renderOrders = () => {
       const {pending , sites } = this.state;
-      return pending.filter( (item,i) => i < 5 ).map( item => {
+      return pending.map( item => {
           let site = sites.find(i => i._id == item.site)
           return {
             ...item , site_data : site , total : this.gettotal(item.items)

@@ -33,6 +33,11 @@ export default  StyleSheet.create({
         fontSize : 14 ,
         alignSelf : 'flex-start',
     },
+    h5dark : {
+        color: colors.PrimaryDark ,
+        fontSize : 14 ,
+        alignSelf : 'flex-start',
+    },
     cardheder : {
         paddingHorizontal : 15 ,
         backgroundColor : '#F5F5F5',
@@ -45,5 +50,29 @@ export default  StyleSheet.create({
             alignSelf : 'center', 
             padding : 5,
             borderRadius : 4,
+    },
+    default_input : {
+        marginTop : 5 ,
+        // marginBottom : 10 ,
+        marginLeft : 12 ,
+        marginRight : 12 ,
+        borderWidth : 0,
+        borderColor : colors.LightGray ,
+        borderRadius : 6,
+    },
+    sample_btn : {
+        marginHorizontal : 12 ,
+        marginTop: 18 , 
+        paddingVertical : 10,
+        backgroundColor : colors.PrimaryBlue , 
+        borderRadius : 4 
+    },
+    quantity : {
+        paddingVertical : 0 ,
+         fontSize: 16 , 
+         borderColor : colors.LightGray , 
+        borderWidth : 0.25 , 
+        borderRadius : 6 , 
+        paddingHorizontal : 12 
     }
 });

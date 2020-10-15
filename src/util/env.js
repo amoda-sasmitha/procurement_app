@@ -1,4 +1,4 @@
 export default {
      // staging
-     API_URL: "https://procurement-master-n243ajvz8rg.herokuapp.com",
+     API_URL: "https://procurement-backend.herokuapp.com",
 }
