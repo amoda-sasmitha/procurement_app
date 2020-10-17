@@ -1,24 +1,24 @@
 import React from "react";
 import { createStackNavigator , CardStyleInterpolators} from "@react-navigation/stack";
 
-// import SingleOrder from "../screens/SingleOrder";
-import Home from "../screens/Home";
+
+import {DrawerNavigator} from "./DrawerNavigator";
 import SingleOrder from "../screens/SingleOrder";
 
 
 const Stack = createStackNavigator();
 
 
-const MainStackNavigator = () => {
+const MainNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={"Home"}>
-      <Stack.Screen name="Home" component={Home}   
+    <Stack.Navigator initialRouteName={"Main"}>
+      <Stack.Screen name="Main" component={DrawerNavigator}   
         options={{
           headerShown: false,
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS 
         }}
       />
-      <Stack.Screen name="SOMain" component={SingleOrder}   
+      <Stack.Screen name="Order" component={SingleOrder}   
         options={{
           headerShown: false,
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS 
@@ -29,4 +29,4 @@ const MainStackNavigator = () => {
   );
 }
 
-export default MainStackNavigator ;
+export default MainNavigator ;

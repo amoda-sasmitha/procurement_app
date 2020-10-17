@@ -1,5 +1,5 @@
 import React from "react";
-
+import {Keyboard} from 'react-native'
 import MainHeader from '../components/MainHeader';
 import getTheme from '../../native-base-theme/components';
 import material from '../../native-base-theme/variables/material';
@@ -73,7 +73,7 @@ import {connect }from 'react-redux'
               return item;
             }
           })
-
+          Keyboard.dismiss()
           this.setState({selected : selected})
         }
 
@@ -120,7 +120,7 @@ import {connect }from 'react-redux'
           <StyleProvider style={getTheme(material)}>
             <Container>
               <MainHeader navigation={this.props.navigation} title="Place Order"/>
-              <Content>
+              {!main_loading && <Content>
                 <View style={[CommonStyles.card , {marginTop : 15}]}>
                   <List>
                   <ListItem
@@ -259,7 +259,9 @@ import {connect }from 'react-redux'
                 { loading && <Spinner color={colors.LightGray}></Spinner>}
             
             
-              </Content>
+              </Content>}
+
+              { main_loading && <Content><Spinner color={colors.LightGray}></Spinner></Content>}
             </Container>
           </StyleProvider>
           

@@ -10,7 +10,7 @@ import axios from 'axios'
 import { View, Text, StyleSheet , Image } from "react-native";
 import env from '../util/env'
 
-export default class CompletedOrders extends React.Component {
+export default class RejectedOrders extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,7 +43,7 @@ export default class CompletedOrders extends React.Component {
     .then( result => {
       this.setState({
         completed : result.data.data
-        .filter( (item,i) => (item.current_state == 5) ) ,
+        .filter( (item,i) => (item.current_state == 0) ) ,
         loading : false
       })
     })
@@ -59,7 +59,7 @@ export default class CompletedOrders extends React.Component {
         return (
           <StyleProvider style={getTheme(material)}>
             <Container>
-              <MainHeader navigation={this.props.navigation} title="Completed"/>
+              <MainHeader navigation={this.props.navigation} title="Rejected"/>
               <Content>
               <View style={[CommonStyles.card, {marginTop : 10 }]}>
                   <OrdersList 

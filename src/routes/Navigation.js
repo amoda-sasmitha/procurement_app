@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import {  View, StyleSheet , Text } from 'react-native';
-import { DrawerNavigator  } from "./DrawerNavigator";
+import  MainNavigator  from "./MainNavigator";
 import { AuthStackNavigator  } from "./AuthStackNavigator";
 import { connect } from 'react-redux';
 class Navigation extends Component {
@@ -16,7 +16,7 @@ class Navigation extends Component {
     render(){
         return (
           <NavigationContainer>
-            {this.props.Auth.isAuthenticated ? <DrawerNavigator /> : <AuthStackNavigator/>}          
+            {this.props.Auth.isAuthenticated ? <MainNavigator /> : <AuthStackNavigator/>}          
         </NavigationContainer>
         );
     }

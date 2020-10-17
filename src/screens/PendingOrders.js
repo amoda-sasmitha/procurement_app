@@ -21,11 +21,17 @@ export default class PendingOrders extends React.Component {
   }
 
   componentDidMount(){
-    this.getData();
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.getData();
+    });
+  }
+
+  componentWillUnmount() {
+    this._unsubscribe();
   }
 
   getData = () => {
-
+    
     axios.get(`${env.API_URL}/api/sites/get_all`)
     .then( result => {
       this.setState({
@@ -36,7 +42,8 @@ export default class PendingOrders extends React.Component {
     })
     .then( result => {
       this.setState({
-        pending : result.data.data.filter( (item,i) => item.current_state == 1 ) ,
+        pending : result.data.data
+        .filter( (item,i) => (item.current_state != 0 &&  item.current_state != 5) ) ,
         loading : false
       })
     })
@@ -56,7 +63,7 @@ export default class PendingOrders extends React.Component {
               <Content>
               <View style={[CommonStyles.card, {marginTop : 10 }]}>
                   <OrdersList 
-                    redirect={'SOPending'}
+                    redirect={'Order'}
                     navigation={this.props.navigation}
                     orders={this.renderOrders()} 
                     loading={this.state.loading} />
@@ -69,7 +76,9 @@ export default class PendingOrders extends React.Component {
 
     renderOrders = () => {
       const {pending , sites } = this.state;
-      return pending.map( item => {
+      return pending
+      .sort((a,b) => new Date(b.created_on).getTime() - new Date(a.created_on).getTime() )
+      .map( item => {
           let site = sites.find(i => i._id == item.site)
           return {
             ...item , site_data : site , total : this.gettotal(item.items)

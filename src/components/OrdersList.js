@@ -2,6 +2,7 @@
 import React, {Component} from 'react';
 import {Text , View , ActivityIndicator , Image} from "react-native";
 import { colors } from '../util/colors'
+import { numberWithCommas , state_color , current_state } from '../util/Size'
 import CommonStyles from '../util/CommonStyle'
 import { Content , ListItem , Icon , Left , Right, List } from "native-base";
 import moment from 'moment'
@@ -9,6 +10,16 @@ import moment from 'moment'
 export default function OrdersList(props){
     return(
         <List>
+
+        { props.loading && 
+          <ListItem noIndent
+          style={{borderBottomWidth : 0 }}>
+            <View style={{flexDirection : 'row' , paddingVertical : 15 }}>
+                <ActivityIndicator color={colors.LightGray}/>
+              <Text style={[CommonStyles.h4 , {marginLeft : 10 , marginTop : 0 , color: colors.LightGray}]} >Orders Loading..</Text>
+            </View>
+        </ListItem>
+        }
         {props.orders.map( (item ,index , array) => (
         <ListItem noIndent key={index} 
           onPress={() => props.navigation.navigate({ name : props.redirect , params : item })}
@@ -23,9 +34,12 @@ export default function OrdersList(props){
                 />
                 </View>
                 <View style={{flex : 6 }}>
-                  <Text style={[CommonStyles.h4 , {fontWeight :'700'}]} >{`LKR ${item.total}.00`}</Text>
-                  <Text style={CommonStyles.h5} >Site {item.site_data && item.site_data.site_code}</Text>
-                  <Text style={CommonStyles.h5} >{moment(item.date).format('LL')}</Text>
+                  <Text style={[CommonStyles.h5,{fontWeight :'700'}]} >Site {item.site_data && item.site_data.site_code}</Text>
+                  <Text style={[CommonStyles.h4 , {fontWeight :'700'}]} >{`LKR ${numberWithCommas(item.total)}.00`}</Text>
+                  <View style={{flex:1}}>
+                  <Text style={[CommonStyles.state,state_color(item.current_state)]} >{current_state(item.current_state)}</Text>
+                  </View>
+                  <Text style={CommonStyles.h5} >{moment(item.created_on).calendar()}</Text>
                 </View>
               </View>
             </Content>
@@ -47,15 +61,7 @@ export default function OrdersList(props){
        </ListItem>
       }
 
-      { props.loading && 
-         <ListItem noIndent
-         style={{borderBottomWidth : 0 }}>
-           <View style={{flexDirection : 'row' , paddingVertical : 15 }}>
-              <ActivityIndicator color={colors.LightGray}/>
-             <Text style={[CommonStyles.h4 , {marginLeft : 10 , marginTop : 0 , color: colors.LightGray}]} >Orders Loading..</Text>
-           </View>
-       </ListItem>
-      }
+      
 
 
       </List>

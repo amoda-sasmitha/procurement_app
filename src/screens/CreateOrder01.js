@@ -105,7 +105,7 @@ export default class CreateOrder01 extends React.Component {
                 </FormItem>
 
                 <Text style={[CommonStyles.h5dark, {paddingHorizontal : 12 , marginTop : 18 , fontWeight : 'bold'}]}>
-                    Delivery Date {JSON.stringify(!(site.length > 0  && supplier.length > 0 && date.length > 0) )}
+                    Delivery Date
                 </Text>
                 <FormItem  regular  style={[CommonStyles.default_input, {paddingVertical : 5 }]} >
                 

@@ -9,13 +9,22 @@ export default class MainHeader extends Component {
   render() {
     return (
       <Header>
-            <Left>
+            { !this.props.back && <Left>
               <Button transparent
               onPress={this.props.navigation.openDrawer}
               >
                 <Icon name='menu' />
               </Button>
             </Left>
+            }
+            { this.props.back && <Left>
+              <Button transparent
+              onPress={() => this.props.navigation.goBack()}
+              >
+                <Icon name='arrow-back' />
+              </Button>
+            </Left>
+            }
             <Body>
               <Title>{this.props.title}</Title>
             </Body>

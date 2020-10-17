@@ -26,8 +26,13 @@ export default class Home extends React.Component {
   }
 
   componentDidMount(){
-    this.setState({loading : true})
-    this.getData();
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.getData();
+    });
+  }
+
+  componentWillUnmount() {
+    this._unsubscribe();
   }
 
   getData = () => {
@@ -66,16 +71,17 @@ export default class Home extends React.Component {
                     <Text style={[styles.num,{ color : colors.PrimaryBlue }]} >{("0" + this.counts()[0]).slice(-2)}</Text>}
                     <Text style={styles.title}>{`Pending${'\n'}Orders`}</Text>
                 </View>
-                <View style={[styles.middlebar, { marginLeft : 3 , marginRight : 3 , backgroundColor : 'white'}]}> 
-                { !this.state.loading && 
-                <Text style={[styles.num,{ color : "#5F61BD"}]} >{("0" + this.counts()[1]).slice(-2)}</Text>}
-                    <Text style={styles.title}>{`Approved${'\n'}Orders`}</Text>
-                </View>
                 <View style={[styles.middlebar, { marginLeft : 3 , marginRight : 12 , backgroundColor : 'white'}]}> 
                       { !this.state.loading && 
-                      <Text style={[styles.num,{ color : "#3CC49F" }]} >{("0" + this.counts()[2]).slice(-2)}</Text>}
+                      <Text style={[styles.num,{ color : "#3CC49F" }]} >{("0" + this.counts()[1]).slice(-2)}</Text>}
                     <Text style={styles.title}>{`Completed${'\n'}Orders`}</Text>
                 </View>
+                <View style={[styles.middlebar, { marginLeft : 3 , marginRight : 3 , backgroundColor : 'white'}]}> 
+                { !this.state.loading && 
+                <Text style={[styles.num,{ color : "#5F61BD"}]} >{("0" + this.counts()[2]).slice(-2)}</Text>}
+                    <Text style={styles.title}>{`Rejected${'\n'}Orders`}</Text>
+                </View>
+              
               </View>
                 
 
@@ -85,7 +91,7 @@ export default class Home extends React.Component {
                 <Text style={[CommonStyles.h3 ]}>Recent Orders</Text>
                 </View>
                   <OrdersList 
-                    redirect={'SOMain'}
+                    redirect={'Order'}
                     navigation={this.props.navigation}
                     orders={this.renderOrders()} 
                     loading={this.state.loading} />
@@ -99,7 +105,10 @@ export default class Home extends React.Component {
 
     renderOrders = () => {
       const {recent , sites } = this.state;
-      return recent.filter( (item,i) => i < 5 ).map( item => {
+      return recent
+      .sort((a,b) => new Date(b.created_on).getTime() - new Date(a.created_on).getTime() )
+      .filter((row,i) => i < 5)
+      .map( item => {
           let site = sites.find(i => i._id == item.site)
           return {
             ...item , site_data : site , total : this.gettotal(item.items)
@@ -121,11 +130,11 @@ export default class Home extends React.Component {
       const { recent} = this.state;
       let counts = [0,0,0]
       recent.forEach( value => {
-        if(value.current_state == 1){
+        if(value.current_state != 0 && value.current_state != 5){
           counts[0] = counts[0] + 1 
-        }else if(value.current_state == 2){
+        }else if(value.current_state == 5){
           counts[1] = counts[1] + 1 
-        }else if(value.current_state == 3){
+        }else if(value.current_state == 0){
           counts[2] = counts[2] + 1 
         }
       })

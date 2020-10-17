@@ -8,6 +8,7 @@ import CommonStyles from '../util/CommonStyle'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 import { Container ,StyleProvider ,Content , ListItem  , Left , Right, List } from "native-base";
 import moment from 'moment'
+import { numberWithCommas , state_color , current_state } from '../util/Size'
 
 export default class SingleOrder extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ export default class SingleOrder extends React.Component {
         return (
           <StyleProvider style={getTheme(material)}>
             <Container>
-              <MainHeader navigation={this.props.navigation} title="Order Details"/>
+              <MainHeader navigation={this.props.navigation} title="Order Details" back={true}/>
               <Content>
 
                 {/* Order Items*/}
@@ -61,7 +62,7 @@ export default class SingleOrder extends React.Component {
                     style={{borderBottomWidth : 0 }}>
                       <View style={{flexDirection : 'row', paddingVertical : 5}}>
                       <Text style={[CommonStyles.h4 , {fontWeight :'700' , color : colors.LightGray}]} >{`TOTAL `}</Text>
-                      <Text style={[CommonStyles.h4 , {fontWeight :'700'}]} >{` LKR ${this.gettotal(order.items)}.00`}</Text>
+                      <Text style={[CommonStyles.h4 , {fontWeight :'700'}]} >{` LKR ${numberWithCommas(this.gettotal(order.items))}.00`}</Text>
                        </View>
                   </ListItem>
                 </List>
@@ -86,7 +87,8 @@ export default class SingleOrder extends React.Component {
                             </View>
                             <View style={{flex : 7 }}>
                               <Text style={[CommonStyles.h4 , {fontWeight :'700'}]} >{`${item.comment}`}</Text>
-                               <Text style={CommonStyles.h5} >{moment(new Date()).format('LL')}</Text>
+                               {item.note != undefined && item.note.length > 0 && <Text style={[CommonStyles.h6,{ fontWeight : '700',paddingVertical : 5}]} >{item.note}</Text>}
+                               {item.date != undefined && <Text style={CommonStyles.h6} >{moment(item.date).calendar()}</Text>}
                             </View>
                           </View>
                         </Content>
@@ -97,9 +99,12 @@ export default class SingleOrder extends React.Component {
 
                   <ListItem noIndent
                     style={{borderBottomWidth : 0 }}>
-                      <View style={{flexDirection : 'row', paddingVertical : 5}}>
+                      <View style={{flexDirection : 'row', paddingVertical : 5 }}>
                       <Text style={[CommonStyles.h4 , {fontWeight :'700' , color : colors.LightGray}]} >{`STATUS `}</Text>
-                      <Text style={[CommonStyles.h4 , {fontWeight :'700'}]} >{` ${this.status_text(order.current_state)}`}</Text>
+                     
+                      <Text style={[{ fontSize : 13 , paddingVertical : 3, fontWeight : 'bold' , paddingHorizontal : 8 , marginLeft : 5 , borderRadius : 3}
+                       ,state_color(order.current_state)]} >{current_state(order.current_state)}</Text>
+                     
                        </View>
                   </ListItem>
                 </List>
@@ -123,21 +128,16 @@ export default class SingleOrder extends React.Component {
 
     status = (status) => {
       switch(parseInt(status)){
-        case 1 : return  <Icon name="archive" style={[ CommonStyles.status_icon ,{backgroundColor : colors.PrimaryBlue }]}  size={16} color="#ffffff" />
+        case 1 : return  <Icon name="archive" style={[ CommonStyles.status_icon ,{backgroundColor : '#007bff' }]}  size={16} color="#ffffff" />
         case 2 : return  <Icon name="check" style={[ CommonStyles.status_icon ,{backgroundColor : "#5F61BD" }]}  size={16} color="#ffffff" />
         case 3 : return  <Icon name="check" style={[ CommonStyles.status_icon ,{backgroundColor : "#F3661E" }]}  size={16} color="#ffffff" />
         case 4 : return  <Icon name="check" style={[ CommonStyles.status_icon ,{backgroundColor : "#3CC49F" }]}  size={16} color="#ffffff" />
+        case 0 : return  <Icon name="archive" style={[ CommonStyles.status_icon ,{backgroundColor : '#bd2130' }]}  size={16} color="#ffffff" />
+        case 5 : return  <Icon name="check" style={[ CommonStyles.status_icon ,{backgroundColor : '#1e7e34' }]}  size={16} color="#ffffff" />
       }
     }
 
-    status_text = (status) => {
-      switch(parseInt(status)){
-        case 1 : return  'PLACED'
-        case 2 : return  'APPROVED'
-        case 3 : return  'PLACED'
-        case 4 : return  'DELIVERED'
-      }
-    }
+   
 
 
 }

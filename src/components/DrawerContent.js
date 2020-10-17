@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     },
     item_text:{
         fontWeight : '600',
-        fontSize : 14.5 ,  
+        fontSize : 15 ,  
         marginLeft : -10,
        
     },
