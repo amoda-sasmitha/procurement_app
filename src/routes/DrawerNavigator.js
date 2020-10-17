@@ -9,6 +9,7 @@ import { StyleSheet , Text} from "react-native";
 import CompletedOrders from "../screens/CompletedOrders";
 import Home from "../screens/Home";
 import PendingOrders from "../screens/PendingOrders";
+import Deliveries from "../screens/Deliveries";
 import RejectedOrders from "../screens/RejectedOrders";
 import CreateOrderStack from "./CreateOrderStack";
 
@@ -45,10 +46,10 @@ const DrawerNavigator = () => {
           title : "Create Order",
           drawerIcon :  ({ color }) => <Icon name="inbox" style={[styles.item_icon,{backgroundColor : color  }]}  size={15} color="#ffffff" /> 
       }} />
-      {/* <Drawer.Screen name="Deliveries" component={Home} options={{
+      <Drawer.Screen name="Deliveries" component={Deliveries} options={{
           title : "Deliveries",
           drawerIcon :  ({ color }) => <Icon name="qrcode" style={[styles.item_icon,{backgroundColor : color  }]}  size={15} color="#ffffff" /> 
-      }} /> */}
+      }} />
      
     </Drawer.Navigator>
   );

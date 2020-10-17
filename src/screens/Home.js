@@ -1,7 +1,7 @@
 // ./screens/Home.js
 
 import React from "react";
-import { View, Text, StyleSheet , Image } from "react-native";
+import { View, Text, StyleSheet , Image ,TouchableOpacity  } from "react-native";
 import { Container ,Badge, StyleProvider, Content , ListItem , Icon , Switch , Left , Right, Button , Body , List} from "native-base";
 import getTheme from '../../native-base-theme/components';
 import material from '../../native-base-theme/variables/material';
@@ -66,21 +66,30 @@ export default class Home extends React.Component {
             <Content>
                 
               <View style={{ flexDirection : 'row'}}> 
-                <View style={[styles.middlebar, { marginLeft : 12 , marginRight : 3 , backgroundColor : 'white'}]}> 
+                <TouchableOpacity  
+                    activeOpacity={0.85}
+                    onPress={()=>this.props.navigation.navigate('Pending')}
+                    style={[styles.middlebar, { marginLeft : 12 , marginRight : 3 , backgroundColor : 'white'}]}> 
                     { !this.state.loading && 
                     <Text style={[styles.num,{ color : colors.PrimaryBlue }]} >{("0" + this.counts()[0]).slice(-2)}</Text>}
                     <Text style={styles.title}>{`Pending${'\n'}Orders`}</Text>
-                </View>
-                <View style={[styles.middlebar, { marginLeft : 3 , marginRight : 12 , backgroundColor : 'white'}]}> 
+                </TouchableOpacity >
+                <TouchableOpacity 
+                 activeOpacity={0.85}
+                 onPress={()=>this.props.navigation.navigate('Completed')}
+                style={[styles.middlebar, { marginLeft : 3 , marginRight : 3 , backgroundColor : 'white'}]}> 
                       { !this.state.loading && 
                       <Text style={[styles.num,{ color : "#3CC49F" }]} >{("0" + this.counts()[1]).slice(-2)}</Text>}
                     <Text style={styles.title}>{`Completed${'\n'}Orders`}</Text>
-                </View>
-                <View style={[styles.middlebar, { marginLeft : 3 , marginRight : 3 , backgroundColor : 'white'}]}> 
+                </TouchableOpacity>
+                <TouchableOpacity 
+                 activeOpacity={0.85}
+                 onPress={()=>this.props.navigation.navigate('Rejected')}
+                style={[styles.middlebar, { marginLeft : 3 , marginRight : 12 , backgroundColor : 'white'}]}> 
                 { !this.state.loading && 
                 <Text style={[styles.num,{ color : "#5F61BD"}]} >{("0" + this.counts()[2]).slice(-2)}</Text>}
                     <Text style={styles.title}>{`Rejected${'\n'}Orders`}</Text>
-                </View>
+                </TouchableOpacity>
               
               </View>
                 

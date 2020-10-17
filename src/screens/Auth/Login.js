@@ -60,7 +60,8 @@ class Login extends React.Component {
                 <Form>
                 <FormItem regular  style={styles.forminput} last>
                     <Input 
-                     placeholder={'Email'}
+                     keyboardType={'twitter'}
+                     placeholder={'Email Address'}
                      placeholderTextColor={'#666666'}
                      style={{ fontSize: 16 }} 
                      value={username}
@@ -86,7 +87,7 @@ class Login extends React.Component {
                     { loading && <Spinner color={colors.White} size={22}/> }
                     <Text style={{fontWeight : '700'}} > { loading ? 'Login In..' : 'LOGIN'} </Text>
                 </Button>
-                <Title style={styles.subtitle}>Reset Your Account?</Title>
+                
                 </Form>
                 </Content>
             </Container>

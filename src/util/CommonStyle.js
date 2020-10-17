@@ -93,7 +93,7 @@ export default  StyleSheet.create({
         backgroundColor : '#3CC49F'
     },
     XX05 : {
-        backgroundColor : '#1e7e34'
+        backgroundColor : '#2ecc71'
     },
     XX00 : {
         backgroundColor : '#bd2130'
@@ -119,9 +119,9 @@ export default  StyleSheet.create({
         color : '#3CC49F',
     },
     bb05 : {
-        borderColor : '#1e7e34',
+        borderColor : '#2ecc71',
         borderWidth : 1,
-        color : '#007bff',
+        color : '#2ecc71',
     },
     bb00 : {
         borderColor : '#bd2130',

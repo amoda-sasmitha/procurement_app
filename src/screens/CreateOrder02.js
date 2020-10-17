@@ -100,10 +100,11 @@ import {connect }from 'react-redux'
       type: 'success',
       buttonText: 'Okay'
     })
+    this.setState({main_loading : false})
     this.props.navigation.navigate('Pending')
    })
    .catch( err => {
-    this.setState({main_loading : true})
+    this.setState({main_loading : false})
     Toast.show({
       text: 'Order Failed !',
       type: 'danger',
@@ -121,42 +122,7 @@ import {connect }from 'react-redux'
             <Container>
               <MainHeader navigation={this.props.navigation} title="Place Order"/>
               {!main_loading && <Content>
-                <View style={[CommonStyles.card , {marginTop : 15}]}>
-                  <List>
-                  <ListItem
-                      style={{borderBottomWidth : 1/3 }}>
-                        <Content>
-                          <View style={{flexDirection : 'row'}}>
-                            <View style={{flex : 1 }}>
-                              <Text style={[CommonStyles.h4 , {fontWeight :'700'}]} >{`Site Name`}</Text>
-                              <Text style={CommonStyles.h5} >{site.site_code}</Text>
-                            </View>
-                            <View style={{flex : 1 }}>
-                              <Text style={[CommonStyles.h4 , {fontWeight :'700'}]} >{`Site Address`}</Text>
-                               <Text style={CommonStyles.h5} >{site.address}</Text>
-                            </View>
-                          </View>
-                        </Content>
-                     
-                    </ListItem>
-                  <ListItem
-                      style={{borderBottomWidth : 1/3 }}>
-                        <Content>
-                          <View style={{flexDirection : 'row'}}>
-                            <View style={{flex : 1 }}>
-                              <Text style={[CommonStyles.h4 , {fontWeight :'700'}]} >{`Delivery Date`}</Text>
-                               <Text style={CommonStyles.h5} >{moment(date, 'YYYY-MM-DD').format('LL')}</Text>
-                            </View>
-                            <View style={{flex : 1 }}>
-                              <Text style={[CommonStyles.h4 , {fontWeight :'700'}]} >{`Supplier`}</Text>
-                               <Text style={CommonStyles.h5} >{supplier.name}</Text>
-                            </View>
-                          </View>
-                        </Content>
-                     
-                    </ListItem>
-                  </List>
-                </View>
+            
                 { !loading && <>
                 <View style={[CommonStyles.card, { paddingBottom : 15 }]}>
                 <View style={[CommonStyles.cardheder , {flexDirection : 'row'}]}>
@@ -255,9 +221,44 @@ import {connect }from 'react-redux'
                 </View> }
                 </>
                 }
-
+                  <View style={[CommonStyles.card , {marginTop : 15}]}>
+                  <List>
+                  <ListItem
+                      style={{borderBottomWidth : 1/3 }}>
+                        <Content>
+                          <View style={{flexDirection : 'row'}}>
+                            <View style={{flex : 1 }}>
+                              <Text style={[CommonStyles.h4 , {fontWeight :'700'}]} >{`Site Name`}</Text>
+                              <Text style={CommonStyles.h5} >{site.site_code}</Text>
+                            </View>
+                            <View style={{flex : 1 }}>
+                              <Text style={[CommonStyles.h4 , {fontWeight :'700'}]} >{`Site Address`}</Text>
+                               <Text style={CommonStyles.h5} >{site.address}</Text>
+                            </View>
+                          </View>
+                        </Content>
+                     
+                    </ListItem>
+                  <ListItem
+                      style={{borderBottomWidth : 1/3 }}>
+                        <Content>
+                          <View style={{flexDirection : 'row'}}>
+                            <View style={{flex : 1 }}>
+                              <Text style={[CommonStyles.h4 , {fontWeight :'700'}]} >{`Delivery Date`}</Text>
+                               <Text style={CommonStyles.h5} >{moment(date, 'YYYY-MM-DD').format('LL')}</Text>
+                            </View>
+                            <View style={{flex : 1 }}>
+                              <Text style={[CommonStyles.h4 , {fontWeight :'700'}]} >{`Supplier`}</Text>
+                               <Text style={CommonStyles.h5} >{supplier.name}</Text>
+                            </View>
+                          </View>
+                        </Content>
+                     
+                    </ListItem>
+                  </List>
+                </View>
                 { loading && <Spinner color={colors.LightGray}></Spinner>}
-            
+                
             
               </Content>}
 

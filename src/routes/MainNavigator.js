@@ -4,6 +4,7 @@ import { createStackNavigator , CardStyleInterpolators} from "@react-navigation/
 
 import {DrawerNavigator} from "./DrawerNavigator";
 import SingleOrder from "../screens/SingleOrder";
+import ConfirmDelivery from "../screens/ConfirmDelivery";
 
 
 const Stack = createStackNavigator();
@@ -19,6 +20,12 @@ const MainNavigator = () => {
         }}
       />
       <Stack.Screen name="Order" component={SingleOrder}   
+        options={{
+          headerShown: false,
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS 
+        }}
+      />
+      <Stack.Screen name="ConfirmDelivery" component={ConfirmDelivery}   
         options={{
           headerShown: false,
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS 

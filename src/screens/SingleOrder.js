@@ -133,7 +133,7 @@ export default class SingleOrder extends React.Component {
         case 3 : return  <Icon name="check" style={[ CommonStyles.status_icon ,{backgroundColor : "#F3661E" }]}  size={16} color="#ffffff" />
         case 4 : return  <Icon name="check" style={[ CommonStyles.status_icon ,{backgroundColor : "#3CC49F" }]}  size={16} color="#ffffff" />
         case 0 : return  <Icon name="archive" style={[ CommonStyles.status_icon ,{backgroundColor : '#bd2130' }]}  size={16} color="#ffffff" />
-        case 5 : return  <Icon name="check" style={[ CommonStyles.status_icon ,{backgroundColor : '#1e7e34' }]}  size={16} color="#ffffff" />
+        case 5 : return  <Icon name="check" style={[ CommonStyles.status_icon ,{backgroundColor : '#2ecc71' }]}  size={16} color="#ffffff" />
       }
     }
 
